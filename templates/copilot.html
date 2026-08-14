@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Hospital Copilot · CareWell Hospital{% endblock %}
+{% block heading %}Hospital Copilot{% endblock %}
+{% block content %}
+<section class="page-intro"><div><p class="eyebrow">ADMINISTRATION ASSISTANT</p><h2>Ask about hospital operations</h2><p>Get concise answers from the hospital's current records.</p></div></section>
+<section class="copilot-layout"><div class="panel chat-panel"><div id="chat-messages" class="chat-messages"><div class="chat-message assistant"><strong>CareWell Copilot</strong><p>How can I help with hospital administration today?</p></div></div><form id="copilot-form" class="chat-form"><label for="copilot-question">Your question</label><div><input id="copilot-question" maxlength="500" placeholder="Ask about patients, doctors, or appointments..." autocomplete="off"><button class="primary-button" type="submit">Send</button></div></form></div><aside class="copilot-side"><div class="panel example-panel"><h2>Try a question</h2><button class="example-question">How many patients are registered?</button><button class="example-question">How many appointments are scheduled today?</button><button class="example-question">Which doctor has the most appointments?</button><button class="example-question">Show upcoming appointments.</button></div><div class="disclaimer"><strong>Administrative support only</strong><p>AI-generated information is for administrative support and must be verified by hospital staff.</p></div></aside></section>
+{% endblock %}

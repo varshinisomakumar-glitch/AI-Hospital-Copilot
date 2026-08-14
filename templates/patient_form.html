@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Add Patient · CareWell Hospital{% endblock %}
+{% block heading %}Add patient{% endblock %}
+{% block content %}
+<section class="page-intro compact-intro"><div><p class="eyebrow">NEW PATIENT RECORD</p><h2>Register a patient</h2><p>Fields marked with * are required.</p></div><a class="secondary-button" href="{{ url_for('patients') }}">← Back to patients</a></section>
+{% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<div class="flash-message {{ category }}">{{ message }}</div>{% endfor %}{% endwith %}
+<form class="panel patient-form" method="post" novalidate><div class="form-grid">
+    <label>Full name *<input name="full_name" required value="{{ form_data.get('full_name', '') }}" placeholder="e.g. Aisha Verma"></label>
+    <label>Date of birth *<input name="date_of_birth" type="date" required value="{{ form_data.get('date_of_birth', '') }}"></label>
+    <label>Gender *<select name="gender" required><option value="">Select gender</option>{% for option in ['Female', 'Male', 'Non-binary', 'Prefer not to say'] %}<option {{ 'selected' if form_data.get('gender') == option else '' }}>{{ option }}</option>{% endfor %}</select></label>
+    <label>Phone number *<input name="phone" required value="{{ form_data.get('phone', '') }}" placeholder="e.g. +91 98765 43210"></label>
+    <label>Email address<input name="email" type="email" value="{{ form_data.get('email', '') }}" placeholder="e.g. aisha@example.com"></label>
+    <label>Blood group<select name="blood_group"><option value="">Select blood group</option>{% for option in ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] %}<option {{ 'selected' if form_data.get('blood_group') == option else '' }}>{{ option }}</option>{% endfor %}</select></label>
+    <label class="full-width">Address<input name="address" value="{{ form_data.get('address', '') }}" placeholder="Area, city"></label>
+    <label class="full-width">Medical notes<textarea name="medical_notes" rows="4" placeholder="Allergies, existing conditions, or other relevant background">{{ form_data.get('medical_notes', '') }}</textarea></label>
+</div><div class="form-actions"><a class="secondary-button" href="{{ url_for('patients') }}">Cancel</a><button class="primary-button" type="submit">Save patient</button></div></form>
+{% endblock %}

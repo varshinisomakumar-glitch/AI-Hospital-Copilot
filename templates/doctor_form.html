@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Add Doctor · CareWell Hospital{% endblock %}
+{% block heading %}Add doctor{% endblock %}
+{% block content %}
+<section class="page-intro compact-intro"><div><p class="eyebrow">NEW CARE TEAM MEMBER</p><h2>Register a doctor</h2><p>Fields marked with * are required.</p></div><a class="secondary-button" href="{{ url_for('doctors') }}">← Back to doctors</a></section>
+{% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<div class="flash-message {{ category }}">{{ message }}</div>{% endfor %}{% endwith %}
+<form class="panel patient-form" method="post" novalidate><div class="form-grid"><label>Full name *<input name="full_name" required value="{{ form_data.get('full_name', '') }}" placeholder="e.g. Dr. Kavya Menon"></label><label>Specialization *<input name="specialization" required value="{{ form_data.get('specialization', '') }}" placeholder="e.g. Pediatrics"></label><label>Phone number *<input name="phone" required value="{{ form_data.get('phone', '') }}" placeholder="e.g. +91 98765 44004"></label><label>Email address<input name="email" type="email" value="{{ form_data.get('email', '') }}" placeholder="e.g. kavya.menon@carewell.example"></label><label class="full-width">Availability<input name="availability" value="{{ form_data.get('availability', '') }}" placeholder="e.g. Mon–Fri, 9:00 AM–5:00 PM"></label></div><div class="form-actions"><a class="secondary-button" href="{{ url_for('doctors') }}">Cancel</a><button class="primary-button" type="submit">Save doctor</button></div></form>
+{% endblock %}

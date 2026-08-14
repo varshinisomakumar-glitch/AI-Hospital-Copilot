@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CareWell Hospital{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="{{ url_for('dashboard') }}">
+                <span class="brand-mark">+</span>
+                <span>CareWell<small>HOSPITAL</small></span>
+            </a>
+            <nav class="nav-links" aria-label="Main navigation">
+                <a class="{{ 'active' if request.endpoint == 'dashboard' else '' }}" href="{{ url_for('dashboard') }}"><span>▦</span> Dashboard</a>
+                <a class="{{ 'active' if request.endpoint in ['patients', 'add_patient'] else '' }}" href="{{ url_for('patients') }}"><span>♙</span> Patients</a>
+                <a class="{{ 'active' if request.endpoint in ['doctors', 'add_doctor'] else '' }}" href="{{ url_for('doctors') }}"><span>♧</span> Doctors</a>
+                <a class="{{ 'active' if request.endpoint in ['appointments', 'add_appointment'] else '' }}" href="{{ url_for('appointments') }}"><span>◷</span> Appointments</a>
+                <a class="{{ 'active' if request.endpoint == 'copilot' else '' }}" href="{{ url_for('copilot') }}"><span>✦</span> Hospital Copilot</a>
+                <a class="{{ 'active' if request.endpoint == 'doctor_copilot' else '' }}" href="{{ url_for('doctor_copilot') }}"><span>✚</span> Doctor Copilot</a>
+            </nav>
+            <div class="sidebar-footer">
+                <span class="status-dot"></span> System online
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">HOSPITAL OVERVIEW</p>
+                    <h1>{% block heading %}Dashboard{% endblock %}</h1>
+                </div>
+                <div class="admin-chip">
+                    <span class="avatar">AD</span>
+                    <span><strong>Admin Desk</strong><small>Hospital administrator</small></span>
+                </div>
+            </header>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

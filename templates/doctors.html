@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Doctors · CareWell Hospital{% endblock %}
+{% block heading %}Doctors{% endblock %}
+{% block content %}
+<section class="page-intro"><div><p class="eyebrow">CARE TEAM DIRECTORY</p><h2>Manage doctors</h2><p>View the active care team or add a new doctor.</p></div><a class="primary-button" href="{{ url_for('add_doctor') }}">+ Add doctor</a></section>
+{% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<div class="flash-message {{ category }}">{{ message }}</div>{% endfor %}{% endwith %}
+<section class="panel patient-directory"><form class="search-bar" method="get" action="{{ url_for('doctors') }}"><label for="doctor-search">Search doctors</label><div><input id="doctor-search" name="q" value="{{ search_term }}" placeholder="Doctor name or specialization"><button type="submit">Search</button></div></form><p class="result-count">{{ doctors|length }} doctor{{ '' if doctors|length == 1 else 's' }} found</p>
+{% if doctors %}<div class="table-wrap"><table><thead><tr><th>Doctor</th><th>Specialization</th><th>Phone</th><th>Email</th><th>Availability</th></tr></thead><tbody>{% for doctor in doctors %}<tr><td><div class="table-person"><span>Dr</span><strong>{{ doctor.full_name }}</strong></div></td><td><b class="blood-group">{{ doctor.specialization }}</b></td><td>{{ doctor.phone }}</td><td>{{ doctor.email or '—' }}</td><td>{{ doctor.availability or '—' }}</td></tr>{% endfor %}</tbody></table></div>{% else %}<div class="empty-state">No doctors matched your search. <a href="{{ url_for('doctors') }}">Clear search</a></div>{% endif %}</section>
+{% endblock %}

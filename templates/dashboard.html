@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard · CareWell Hospital{% endblock %}
+{% block heading %}Good morning, Admin{% endblock %}
+
+{% block content %}
+<section class="welcome-card">
+    <div>
+        <p class="eyebrow light">CAREWELL OPERATIONS CENTER</p>
+        <h2>Your hospital at a glance.</h2>
+        <p>Monitor people, appointments, and daily activity from one calm workspace.</p>
+    </div>
+    <div class="welcome-icon" aria-hidden="true">✚</div>
+</section>
+
+<section class="stats-grid" aria-label="Hospital statistics">
+    <article class="stat-card"><span class="stat-icon blue">♙</span><div><p>Total patients</p><strong>{{ totals.patient_count }}</strong><small>Registered in CareWell</small></div></article>
+    <article class="stat-card"><span class="stat-icon purple">♧</span><div><p>Doctors</p><strong>{{ totals.doctor_count }}</strong><small>Active care team members</small></div></article>
+    <article class="stat-card"><span class="stat-icon orange">◷</span><div><p>Today's appointments</p><strong>{{ totals.today_appointments }}</strong><small>Across all departments</small></div></article>
+    <article class="stat-card"><span class="stat-icon green">✓</span><div><p>Scheduled</p><strong>{{ totals.scheduled_appointments }}</strong><small>Appointments awaiting care</small></div></article>
+</section>
+
+<section class="dashboard-grid">
+    <article class="panel appointments-panel">
+        <div class="panel-heading"><div><h2>Upcoming appointments</h2><p>Your next scheduled consultations</p></div><span class="pill">Live data</span></div>
+        {% if upcoming_appointments %}
+        <div class="appointment-list">
+            {% for appointment in upcoming_appointments %}
+            <div class="appointment-row">
+                <div class="date-box"><strong>{{ appointment.appointment_date[11:16] }}</strong><span>{{ appointment.appointment_date[8:10] }}/{{ appointment.appointment_date[5:7] }}</span></div>
+                <div class="appointment-details"><strong>{{ appointment.patient_name }}</strong><span>{{ appointment.reason }}</span></div>
+                <div class="doctor-details"><strong>{{ appointment.doctor_name }}</strong><span>{{ appointment.specialization }}</span></div>
+                <span class="status-badge">{{ appointment.status }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">No upcoming appointments yet.</div>
+        {% endif %}
+    </article>
+
+    <aside class="right-column">
+        <article class="panel">
+            <div class="panel-heading"><div><h2>Recent patients</h2><p>Newest registrations</p></div></div>
+            <div class="patient-list">
+                {% for patient in recent_patients %}
+                <div class="patient-row"><span class="patient-avatar">{{ patient.full_name[0] }}</span><div><strong>{{ patient.full_name }}</strong><span>{{ patient.blood_group or 'Blood group pending' }}</span></div></div>
+                {% endfor %}
+            </div>
+        </article>
+        <article class="quick-tip">
+            <span>✦</span><div><strong>Copilot is coming soon</strong><p>Phase 1 is ready. AI features will be added after the core workflows.</p></div>
+        </article>
+    </aside>
+</section>
+{% endblock %}

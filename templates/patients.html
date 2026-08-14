@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Patients · CareWell Hospital{% endblock %}
+{% block heading %}Patients{% endblock %}
+{% block content %}
+<section class="page-intro">
+    <div><p class="eyebrow">PATIENT DIRECTORY</p><h2>Manage patient records</h2><p>View registered patients or add a new record.</p></div>
+    <a class="primary-button" href="{{ url_for('add_patient') }}">+ Add patient</a>
+</section>
+{% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<div class="flash-message {{ category }}">{{ message }}</div>{% endfor %}{% endwith %}
+<section class="panel patient-directory">
+    <form class="search-bar" method="get" action="{{ url_for('patients') }}">
+        <label for="patient-search">Search patients</label>
+        <div><input id="patient-search" name="q" value="{{ search_term }}" placeholder="Name, phone number, or blood group"><button type="submit">Search</button></div>
+    </form>
+    <p class="result-count">{{ patients|length }} patient{{ '' if patients|length == 1 else 's' }} found</p>
+    {% if patients %}<div class="table-wrap"><table>
+        <thead><tr><th>Patient</th><th>Date of birth</th><th>Gender</th><th>Phone</th><th>Blood group</th><th>Email</th></tr></thead>
+        <tbody>{% for patient in patients %}<tr><td><div class="table-person"><span>{{ patient.full_name[0] }}</span><strong>{{ patient.full_name }}</strong></div></td><td>{{ patient.date_of_birth }}</td><td>{{ patient.gender }}</td><td>{{ patient.phone }}</td><td><b class="blood-group">{{ patient.blood_group or '—' }}</b></td><td>{{ patient.email or '—' }}</td></tr>{% endfor %}</tbody>
+    </table></div>{% else %}<div class="empty-state">No patients matched your search. <a href="{{ url_for('patients') }}">Clear search</a></div>{% endif %}
+</section>
+{% endblock %}
